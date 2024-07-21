@@ -1,13 +1,16 @@
-package sia.tacocloud.domain;
+package sia.tacocloud.domain.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
 public class Taco {
+    private long id;
+    private Date createAt = new Date();
     @NotNull
     @Size(min=5, message="Name must be at least 5 characters long")
     private String name;

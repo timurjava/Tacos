@@ -1,18 +1,21 @@
 package sia.tacocloud.controllers;
 
+import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import sia.tacocloud.domain.Ingredient;
-import sia.tacocloud.domain.IngredientType;
-import sia.tacocloud.domain.Taco;
-import sia.tacocloud.domain.TacoOrder;
+import sia.tacocloud.domain.dto.Ingredient;
+import sia.tacocloud.domain.dto.IngredientType;
+import sia.tacocloud.domain.dto.Taco;
+import sia.tacocloud.domain.dto.TacoOrder;
+import sia.tacocloud.domain.repository.Implementation.JdbcIngredientRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,20 +24,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
+    @Resource
+    private JdbcIngredientRepository jdbcIngredientRepository;
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO", "Flour Tortilla", IngredientType.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", IngredientType.WRAP),
-                new Ingredient("GRBF", "Ground Beef", IngredientType.PROTEIN),
-                new Ingredient("CARN", "Carnitas", IngredientType.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", IngredientType.VEGGIES),
-                new Ingredient("LETC", "Lettuce", IngredientType.VEGGIES),
-                new Ingredient("CHED", "Cheddar", IngredientType.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", IngredientType.CHEESE),
-                new Ingredient("SLSA", "Salsa", IngredientType.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", IngredientType.SAUCE)
-        );
+        Iterable<Ingredient> ingredients = jdbcIngredientRepository.findAll();
         IngredientType [] types = IngredientType.values();
         for (IngredientType type: types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
@@ -61,7 +55,13 @@ public class DesignTacoController {
         return "redirect:/orders/current";
     }
 
-    private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, IngredientType type) {
-        return ingredients.stream().filter(x -> x.type().equals(type)).collect(Collectors.toList());
+    private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, IngredientType type) {
+        List<Ingredient> ingredientList = new ArrayList<>();
+        ingredients.forEach(x -> {
+            if (x.type().equals(type)){
+                ingredientList.add(x);
+            }
+        });
+        return ingredientList;
     }
 }
