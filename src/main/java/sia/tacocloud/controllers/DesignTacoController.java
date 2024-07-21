@@ -11,13 +11,10 @@ import sia.tacocloud.domain.dto.Ingredient;
 import sia.tacocloud.domain.dto.IngredientType;
 import sia.tacocloud.domain.dto.Taco;
 import sia.tacocloud.domain.dto.TacoOrder;
-import sia.tacocloud.domain.repository.Implementation.JdbcIngredientRepository;
+import sia.tacocloud.domain.repository.IngredientRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -25,7 +22,7 @@ import java.util.stream.Collectors;
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
     @Resource
-    private JdbcIngredientRepository jdbcIngredientRepository;
+    private IngredientRepository jdbcIngredientRepository;
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
         Iterable<Ingredient> ingredients = jdbcIngredientRepository.findAll();
