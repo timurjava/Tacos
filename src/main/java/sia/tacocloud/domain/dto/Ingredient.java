@@ -1,5 +1,9 @@
 package sia.tacocloud.domain.dto;
 
-public record Ingredient(String id, String name, IngredientType type) {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
+@Table
+public record Ingredient(@Id String id, String name, IngredientType type) {
 
 }
