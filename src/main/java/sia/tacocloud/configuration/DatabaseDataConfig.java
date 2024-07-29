@@ -5,7 +5,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
 import sia.tacocloud.domain.dto.Ingredient;
 import sia.tacocloud.domain.dto.IngredientType;
 import sia.tacocloud.domain.repository.IngredientRepository;
@@ -31,8 +30,6 @@ public class DatabaseDataConfig {
 //            repo.save(new Ingredient("SRCR", "Sour Cream", IngredientType.SAUCE));
 //        };
 //    }
-    @Autowired
-    JdbcAggregateTemplate repo;
 
     @Bean
     public ApplicationRunner dataLoader(IngredientRepository repo) {

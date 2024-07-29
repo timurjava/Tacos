@@ -1,13 +1,12 @@
 package sia.tacocloud.domain.dto;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,13 +14,14 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Table("Taco_Cloud_Order")
+@Entity
 public class TacoOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     private Long id;
     private Date placedAt;
-    @Column("customer_name")
+    @Column(name = "customer_name")
     @NotBlank(message="Delivery name is required")
     private String deliveryName;
     @NotBlank(message="Street is required")
@@ -39,7 +39,7 @@ public class TacoOrder implements Serializable {
     private String ccExpiration;
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
-
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco) {

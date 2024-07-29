@@ -55,7 +55,7 @@ public class DesignTacoController {
     private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, IngredientType type) {
         List<Ingredient> ingredientList = new ArrayList<>();
         ingredients.forEach(x -> {
-            if (x.type().equals(type)){
+            if (x.getType().equals(type)){
                 ingredientList.add(x);
             }
         });
