@@ -4,6 +4,16 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
+  cassandra:
+    keyspace-name: taco_cloud
+    schema-action: recreate
+#    contact-points: Если база не локальная можно указать точки где она лежит а конкретно хост ибо порт ниже
+#      - casshost-1.tacocloud.com
+#      - casshost-2.tacocloud.com
+#      - casshost-3.tacocloud.com
+    local-datacenter: datacenter1
+    username: tacocloud
+    password: s3cr3tP455w0rd
 
 server:
   port: 8081
