@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import sia.tacocloud.domain.util.TacoUDT;
 
 
 import java.io.Serializable;
@@ -42,9 +43,9 @@ public class TacoOrder implements Serializable {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
     @Column("tacos")
-    private List<Taco> tacos = new ArrayList<>();
+    private List<TacoUDT> tacos = new ArrayList<>();
 
-    public void addTaco(Taco taco) {
+    public void addTaco(TacoUDT taco) {
         this.tacos.add(taco);
     }
 }
