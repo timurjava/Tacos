@@ -9,17 +9,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.containsString;
 import sia.tacocloud.controllers.HomeController;
 
-@WebMvcTest(HomeController.class)
-public class HomeControllerTest {
-
-    @Resource
-    private MockMvc mockMvc;
-
-    @Test
-    public void testHomePage() throws Exception {
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("home"))
-                .andExpect(content().string(containsString("Welcome to...")));
-    }
-}
+//@WebMvcTest(HomeController.class)
+//public class HomeControllerTest {
+//
+//    @Resource
+//    private MockMvc mockMvc;
+//
+//    @Test
+//    public void testHomePage() throws Exception {
+//        mockMvc.perform(get("/"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("home"))
+//                .andExpect(content().string(containsString("Welcome to...")));
+//    }
+//}

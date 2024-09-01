@@ -10,6 +10,18 @@ create table if not exists Taco_Order (
     cc_cvv varchar(3) not null,
     placed_at timestamp not null
 );
+create table if not exists User_Principal (
+    id identity PRIMARY KEY,
+    username varchar(50) not null,
+    password varchar(50) not null,
+    fullname varchar(50) not null,
+    street varchar(50) not null,
+    city varchar(20) not null,
+    states varchar(16) not null,
+    zip varchar(6) not null,
+    phone_Number varchar(10) not null,
+    placed_at timestamp not null
+);
 create table if not exists Taco (
     id identity PRIMARY KEY,
     name varchar(50) not null,
