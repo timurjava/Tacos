@@ -1,6 +1,7 @@
 package sia.tacocloud.domain.dto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.List;
 @Entity
 public class Taco {
     @Id
+    @GeneratedValue
     private long id;
     private Date createAt = new Date();
     @NotNull
